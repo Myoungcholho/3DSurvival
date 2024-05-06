@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
 
-public partial class Player : MonoBehaviour
+public partial class Player : LivingEntitiy
 {
     [SerializeField]
     private float walkSpeed = 2.0f;
@@ -50,6 +50,10 @@ public partial class Player : MonoBehaviour
 
     private void UpdateMoving()
     {
+        if (bAttacking)
+            return;
+
+
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
         bool bRun = Input.GetButton("Run");
@@ -59,8 +63,6 @@ public partial class Player : MonoBehaviour
         transform.Translate(direction * Time.deltaTime);
         animator.SetFloat("SpeedX", direction.x);
         animator.SetFloat("SpeedZ", direction.z);
-
-
     }
 
     private void OnGUI()

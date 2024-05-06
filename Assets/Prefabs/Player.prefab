@@ -1360,7 +1360,7 @@ GameObject:
   - component: {fileID: 6400797055265149268}
   - component: {fileID: 6400797055265149269}
   - component: {fileID: 6400797055265149265}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1377,7 +1377,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2186502824840685349}
   - {fileID: 1373273202742916978}
@@ -1415,7 +1415,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.4
+  m_Radius: 0.3
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
@@ -1433,7 +1433,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &6400797055265149265
 MonoBehaviour:
@@ -1447,6 +1447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingHealth: 100
   walkSpeed: 2
   runSpeed: 4
   swordPrefab: {fileID: 3416242799107576982, guid: 51e6752fb1b8e6042b9835e922af930f, type: 3}

@@ -19,7 +19,6 @@ public partial class Player
         if (bSheathing == true)
             return;
 
-
         if (bEquipped == false)
         {
             bDrawing = true;
@@ -27,7 +26,6 @@ public partial class Player
 
             return;
         }
-
 
         bSheathing = true;
         animator.SetBool("IsUnequip", bSheathing);
@@ -45,7 +43,6 @@ public partial class Player
         swordDestination.transform.SetParent(handTransform, false);
     }
 
-    //
     private void End_Equip()
     {
         bEquipped = true; // 검을 장착했는지
