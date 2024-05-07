@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9761637ed9d669f43aa8670ece4a56f8
+guid: 85d095d5de6746540b4589cfbf7b6261
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -15,16 +15,9 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
-    motionNodeName: <Root Transform>
+    motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
-      copied configuration does not match position in animation file:\n\t'mixamorig:LeftUpLeg'
-      : position error = 33.898746 mm\n\t'mixamorig:LeftLeg' : position error = 58.188641
-      mm\n\t'mixamorig:LeftFoot' : position error = 126.293777 mm\n\t'mixamorig:LeftToeBase'
-      : position error = 15.014494 mm\n\t'mixamorig:RightUpLeg' : position error
-      = 35.276558 mm\n\t'mixamorig:RightLeg' : position error = 58.614902 mm\n\t'mixamorig:RightFoot'
-      : position error = 126.226349 mm\n\t'mixamorig:RightToeBase' : position error
-      = 13.390238 mm\n"
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -38,36 +31,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Sword_Run_Left
-      takeName: mixamo.com
-      internalID: -203655887218126122
-      firstFrame: 0
-      lastFrame: 20
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []

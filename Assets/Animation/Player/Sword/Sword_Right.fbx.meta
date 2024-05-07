@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cc020bb111b208542853970363d3fae7
+guid: f9f4c7e3d3c6b2049a536532e819dd68
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,18 +33,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Swrod_Sheath2
+      name: Sword_Right
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 25
+      lastFrame: 34
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -56,21 +56,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0
-        functionName: Begin_Unequip
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.9431664
-        functionName: End_Unequip
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
