@@ -13,8 +13,18 @@ public class Zombie : LivingEntitiy
     public float timeBetAttack = 0.5f;
     private float lastAttackTime;
 
-    
-    private bool hasTarget
+    public bool IsWalking
+    {
+        get => isWalking; 
+        set => isWalking = value;
+    }
+    private bool isWalking;
+
+    [SerializeField]
+    private float radius = 5f;
+
+    // 타격 대상 유무 true/false
+    public bool hasTarget
     {
         get
         {
@@ -38,13 +48,10 @@ public class Zombie : LivingEntitiy
 
     void Update()
     {
-        animator.SetBool("HasTarget", hasTarget);
-        if(targetEntity != null ) 
-        {
-            Debug.Log("추적 대상 :" + targetEntity.name);
-        }
+        animator.SetBool("HasTarget", IsWalking);
     }
 
+    // Nav Update
     private IEnumerator UpdatePath()
     {
         while(!dead)
@@ -52,11 +59,12 @@ public class Zombie : LivingEntitiy
             if(hasTarget)
             {
                 navMeshAgent.isStopped = false;
+                // 목적지 셋팅, 적의 위치로
                 navMeshAgent.SetDestination(targetEntity.transform.position);
             }
             else
             {
-                Collider[] colliders = Physics.OverlapSphere(transform.position, 20f, whatIsTarget);
+                Collider[] colliders = Physics.OverlapSphere(transform.position, radius, whatIsTarget);
                 for(int i=0; i<colliders.Length; i++) 
                 {
                     LivingEntitiy livingEntitiy = colliders[i].GetComponent<LivingEntitiy>();
@@ -72,6 +80,7 @@ public class Zombie : LivingEntitiy
         }
     }
 
+    // 몬스터가 피해를 입었다면
     public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
     {
         if(!dead)
@@ -82,6 +91,7 @@ public class Zombie : LivingEntitiy
         base.OnDamage(damage, hitPoint, hitNormal);
     }
 
+    // 몬스터가 죽었다면
     public override void Die()
     {
         base.Die();
@@ -96,6 +106,7 @@ public class Zombie : LivingEntitiy
         navMeshAgent.enabled = false;
     }
 
+    // 공격 범위에 들어왔다면
     private void OnTriggerStay(Collider other)
     {
         if(!dead && Time.time >= lastAttackTime + timeBetAttack)
@@ -110,5 +121,11 @@ public class Zombie : LivingEntitiy
                 attackTarget.OnDamage(damage, hitPoint, hitNoral);
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 }
