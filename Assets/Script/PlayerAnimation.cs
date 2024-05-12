@@ -73,6 +73,9 @@ public partial class Player
     // 공격하는 코드
     #region Attacking
     private bool bAttacking = false;
+    private bool bEnable = false;
+    private bool bExist = false;
+
 
     private void UpdateAttacking()
     {
@@ -85,13 +88,28 @@ public partial class Player
         if (bEquipped == false)
             return;
 
+        if(bEnable)
+        {
+            bExist = true;
+            bEnable = false;
+            return;
+        }
+
         if (bAttacking == true)
             return;
 
 
         bAttacking = true;
         animator.SetBool("IsAttacking", true);
-        //animator.SetTrigger("Attacking");
+    }
+
+    // 콤보 공격을 이어감
+    private void Begin_Attack()
+    {
+        if (!bExist)
+            return;
+        bExist = false;
+        animator.SetTrigger("NextCombo");
     }
 
     // 공격이 끝났을 때 다시 공격 가능하게 하기 위해 호출
@@ -99,6 +117,17 @@ public partial class Player
     {
         bAttacking = false;
         animator.SetBool("IsAttacking", false);
+    }
+
+    private void Begin_Combo()
+    {
+        bEnable = true;
+    }
+
+
+    private void End_Combo()
+    {
+        bEnable = false;
     }
 
     // 공격하면 켜

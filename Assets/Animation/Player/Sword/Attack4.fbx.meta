@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f5c6aa440b56b874b903fbc5ce5ace56
+guid: 2e114ab5249063e49ac2ff5ee062691f
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Attack1
+      name: Attack4
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 45
+      lastFrame: 95
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -57,43 +57,43 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.1451248
-        functionName: Begin_Combo
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.32451925
+      - time: 0.29807693
         functionName: Begin_Collision
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.3966346
-        functionName: End_Combo
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.660784
+      - time: 0.40625
         functionName: End_Collision
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.77000165
+      - time: 0.8004808
         functionName: Begin_Attack
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9662587
+      - time: 0.96634614
         functionName: End_Attack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.19951923
+        functionName: Begin_Combo
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.47596154
+        functionName: End_Combo
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
         floatParameter: 0

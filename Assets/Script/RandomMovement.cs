@@ -24,16 +24,20 @@ public class RandomMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!zombie.hasTarget)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, destPos, speed * Time.deltaTime);
-            zombie.IsWalking = true;
-            transform.rotation = Quaternion.LookRotation(destPos);
+        MoveToRandomPosition();
+    }
 
+    private void MoveToRandomPosition()
+    {
+        if (zombie.hasTarget)
             return;
-        }
 
-        
+        if (zombie.outOfRange)
+            return;
+
+        zombie.IsWalking = true;
+        transform.position = Vector3.MoveTowards(transform.position, destPos, speed * Time.deltaTime);
+        transform.rotation = Quaternion.LookRotation(destPos.normalized);
     }
 
     // 5초마다 랜덤한 위치를 찾음

@@ -30,6 +30,7 @@ public partial class Player : LivingEntitiy
 
     private void Start()
     {
+        health = startingHealth;
         holsterTransform = transform.FindChildByName("Holster");
         handTransform = transform.FindChildByName("HolderWeapon");
         if (swordPrefab != null)
@@ -37,7 +38,6 @@ public partial class Player : LivingEntitiy
             swordDestination = Instantiate<GameObject>(swordPrefab, holsterTransform);
             sword = swordDestination.GetComponent<Sword>();
         }
-
     }
 
     private void Update()

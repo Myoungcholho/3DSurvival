@@ -56,7 +56,28 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.38942307
+        functionName: Begin_Collision
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.65384614
+        functionName: End_Collision
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.9800711
+        functionName: End_Attack
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 00facbd9599d44f43ad9952f3a461f78, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

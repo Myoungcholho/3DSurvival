@@ -1,12 +1,18 @@
+using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
     private new Collider collider;
+    private GameObject rootObject;
+    private List<GameObject> hittedList;
 
     private void Awake()
     {
         collider = GetComponent<Collider>();
+        rootObject = transform.root.gameObject;
+        hittedList = new List<GameObject>();
     }
 
     private void Start()
@@ -16,13 +22,16 @@ public class Sword : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (transform.root.gameObject == other.gameObject)
+        if (rootObject == other.gameObject)
             return;
 
-        // 충돌 로직이 내일 여기 써질 예정
+        if (hittedList.Contains(other.gameObject))
+            return;
 
+        hittedList.Add(other.gameObject);
 
-        print(other.gameObject.name);
+        LivingEntitiy entitiy = other.GetComponent<LivingEntitiy>();
+        entitiy?.OnDamage(20f, Vector3.zero, Vector3.zero);
     }
 
     public void Begin_Collision()
@@ -33,5 +42,6 @@ public class Sword : MonoBehaviour
     public void End_Collision()
     {
         collider.enabled = false;
+        hittedList.Clear();
     }
 }
