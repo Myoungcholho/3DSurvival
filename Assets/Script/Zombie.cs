@@ -3,17 +3,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Zombie : LivingEntitiy
+public partial class Zombie : LivingEntitiy
 {
     public LayerMask whatIsTarget; // 추적 대상 레이어
     private LivingEntitiy targetEntity; // 추적 대상   
-    private Animator animator;
+    public Animator animator;
     public float damage = 20f;
-    public float timeBetAttack = 0.5f;
-    private float lastAttackTime;
+
     private bool hitting;           // 맞는 중인지 아닌지 판단
     public bool outOfRange;        // 범위 밖으로 나갔을 때 딜레이
-
+    private HandAttack handWeapon;  // 기본 손 무기
 
     public bool IsWalking
     {
@@ -25,7 +24,7 @@ public class Zombie : LivingEntitiy
     [SerializeField]
     private float radius = 5f;
 
-    private float rotationSpeed = 50f;
+    private float rotationSpeed = 100f;
     private float walkSpeed = 2f;
 
     // 타격 대상 유무 true/false
@@ -50,6 +49,7 @@ public class Zombie : LivingEntitiy
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        handWeapon = GameObject.Find("AttackZone").GetComponent<HandAttack>();
     }
 
     private void Start()
@@ -60,9 +60,10 @@ public class Zombie : LivingEntitiy
 
     void Update()
     {
-        trackPlayer();
+        if (GameManager.instance.isGameover)
+            return;
 
-        animator.SetBool("IsWalking", IsWalking);
+        TrackPlayer();
     }
 
     // 딜레이 5초
@@ -96,11 +97,11 @@ public class Zombie : LivingEntitiy
                     }
                 }
             }
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(1f);
         }
     }
 
-    private void trackPlayer()
+    private void TrackPlayer()
     {
         if (dead)
             return;
@@ -109,6 +110,9 @@ public class Zombie : LivingEntitiy
             return;
 
         if (hitting)
+            return;
+
+        if (IsAttack)
             return;
 
         Vector3 targetPos = targetEntity.transform.position;
@@ -124,6 +128,7 @@ public class Zombie : LivingEntitiy
         {
             transform.transform.position = Vector3.MoveTowards(pos, targetPos, walkSpeed * Time.deltaTime);
             IsWalking = true;
+            animator.SetBool("IsWalking", IsWalking);
         }
     }
 
@@ -148,6 +153,16 @@ public class Zombie : LivingEntitiy
         hitting = false;
     }
 
+    private void Begin_Collision()
+    {
+        handWeapon.Begin_Collision();
+    }
+    private void End_Collision()
+    {
+        handWeapon.End_Collision();
+    }
+
+
     // 몬스터가 죽었다면
     public override void Die()
     {
@@ -160,22 +175,7 @@ public class Zombie : LivingEntitiy
         }
     }
 
-    // 공격 범위에 들어왔다면
-    private void OnTriggerStay(Collider other)
-    {
-        /*if(!dead && Time.time >= lastAttackTime + timeBetAttack)
-        {
-            LivingEntitiy attackTarget = other.GetComponent<LivingEntitiy>();
 
-            if(attackTarget != null && attackTarget == targetEntity)
-            {
-                lastAttackTime = Time.time;
-                Vector3 hitPoint = other.ClosestPoint(transform.position);
-                Vector3 hitNoral = transform.position - other.transform.position;
-                attackTarget.OnDamage(damage, hitPoint, hitNoral);
-            }
-        }*/
-    }
 
     private void OnDrawGizmos()
     {

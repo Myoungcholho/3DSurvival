@@ -98,7 +98,6 @@ public partial class Player
         if (bAttacking == true)
             return;
 
-
         bAttacking = true;
         animator.SetBool("IsAttacking", true);
     }

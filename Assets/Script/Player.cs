@@ -23,14 +23,18 @@ public partial class Player : LivingEntitiy
 
     private Animator animator;
 
+    // 플레이어 콜라이더
+    private new Collider collider;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        collider = GetComponent<Collider>();
     }
 
     private void Start()
     {
-        health = startingHealth;
+        SetUp();
         holsterTransform = transform.FindChildByName("Holster");
         handTransform = transform.FindChildByName("HolderWeapon");
         if (swordPrefab != null)
@@ -42,10 +46,17 @@ public partial class Player : LivingEntitiy
 
     private void Update()
     {
+        if (GameManager.instance.isGameover)
+            return;
+
         UpdateMoving();
         UpdateDrawing();
         UpdateAttacking();
+    }
 
+    private void SetUp()
+    {
+        health = startingHealth;
     }
 
     private void UpdateMoving()
@@ -65,6 +76,17 @@ public partial class Player : LivingEntitiy
         animator.SetFloat("SpeedZ", direction.z);
     }
 
+    public virtual void OnDamage(float damage,Vector3 hitPoint,Vector3 hitNormal)
+    {
+
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        animator.SetTrigger("IsDead");
+        collider.enabled = false;
+    }
     private void OnGUI()
     {
         GUI.color = Color.red;
