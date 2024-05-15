@@ -22,6 +22,7 @@ public partial class Zombie
             {
                 animator.SetTrigger("Attacking");
                 IsAttack = true;
+                IsWalking = false;
             }
         }
     }

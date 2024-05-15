@@ -19,9 +19,15 @@ public class UIManager : MonoBehaviour
         }
     }
     public Text gameOverText;
+    public Text gameClearText;
     
-    public void SetTextActive(bool value)
+    public void OverTextUpdate(bool value)
     {
         gameOverText.gameObject.SetActive(value);
+    }
+
+    public void ClearTextUpdate(bool value)
+    {
+        gameClearText.gameObject.SetActive(value);
     }
 }

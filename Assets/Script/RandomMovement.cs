@@ -3,54 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RandomMovement : MonoBehaviour
+public partial class Zombie
 {
     [SerializeField]
-    private float radius = 0.1f;
+    private float distanceRadius = 0.1f;
 
     private Vector3 destPos;
     private float speed = 3f;
     private float distance = 3f;
     private float waitTime = 5f;
-    private LivingEntitiy entity;
-    private Zombie zombie;
-
-    private void Awake()
-    {
-        entity = GetComponent<LivingEntitiy>();
-        zombie = GetComponent<Zombie>();
-    }
-
-    private void Start()
-    {
-        //if(entity != null)
-        StartCoroutine(RandomPositionGenerator());
-    }
-
-    private void Update()
-    {
-        MoveToRandomPosition();
-    }
 
     private void MoveToRandomPosition()
     {
-        if (zombie.hasTarget)
+        if (hasTarget)
             return;
 
-        if (zombie.outOfRange)
+        if (outOfRange)
+            return;
+
+        if (IsAttack)
             return;
 
         Vector3 direction = destPos - transform.position;
         // 거리가 가까우면 Walk 변경
-        if (Vector3.Distance(transform.position, destPos) < radius)
+        if (Vector3.Distance(transform.position, destPos) < distanceRadius)
         {
-            zombie.IsWalking = false;
-            zombie.animator.SetBool("IsWalking", zombie.IsWalking);
+            IsWalking = false;
+            animator.SetBool("IsWalking", IsWalking);
         }
         else
         {
-            zombie.IsWalking = true;
-            zombie.animator.SetBool("IsWalking", zombie.IsWalking);
+            IsWalking = true;
+            animator.SetBool("IsWalking", IsWalking);
         }
 
         if (direction == Vector3.zero)
@@ -73,10 +57,5 @@ public class RandomMovement : MonoBehaviour
 
             yield return new WaitForSeconds(waitTime);
         }
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Debug.DrawLine(transform.position, destPos, Color.red);
     }
 }

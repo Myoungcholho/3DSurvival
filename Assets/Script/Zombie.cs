@@ -20,9 +20,11 @@ public partial class Zombie : LivingEntitiy
         set => isWalking = value;
     }
     private bool isWalking;
+    private bool autoWalking;
 
     [SerializeField]
     private float radius = 5f;
+    private float limitDistance = 0.5f;
 
     private float rotationSpeed = 100f;
     private float walkSpeed = 2f;
@@ -34,7 +36,8 @@ public partial class Zombie : LivingEntitiy
         {
             if(targetEntity != null && !targetEntity.dead)
             {
-                if (Vector3.Distance(transform.position, targetEntity.transform.position) > radius)
+                // 타겟이 있고 거리가 가까워지면 때릴 때 움직이면 안되므로
+                if (Vector3.Distance(transform.position, targetEntity.transform.position) < limitDistance)
                 {
                     StopCoroutine(ChangeBoolAfterDelay());
                     StartCoroutine(ChangeBoolAfterDelay());
@@ -56,14 +59,16 @@ public partial class Zombie : LivingEntitiy
     {
         health = startingHealth;
         StartCoroutine(UpdatePath());
+        StartCoroutine(RandomPositionGenerator());
     }
 
     void Update()
     {
-        if (GameManager.instance.isGameover)
-            return;
+        /*if (GameManager.instance.isGameover)
+            return;*/
 
         TrackPlayer();
+        MoveToRandomPosition();
     }
 
     // 딜레이 5초
@@ -82,14 +87,20 @@ public partial class Zombie : LivingEntitiy
     {
         while(!dead)
         {
-            if(!hasTarget)
+            Collider[] colliders = Physics.OverlapSphere(transform.position, radius, whatIsTarget);
+            if(colliders.Length == 0)
             {
                 targetEntity = null;
-                Collider[] colliders = Physics.OverlapSphere(transform.position, radius, whatIsTarget);
-                for(int i=0; i<colliders.Length; i++) 
+                // 여기부터 작업, 외곽 바깥으로 플레이어 나가면 잠시 대기할 수 있도록 애니메이션 설정
+                isWalking = false;
+                animator.SetBool("IsWalking", false);
+            }
+            else
+            {
+                for (int i = 0; i < colliders.Length; i++)
                 {
-                    LivingEntitiy livingEntitiy = colliders[i].GetComponent<LivingEntitiy>();
-                    if(livingEntitiy != null && !livingEntitiy.dead)
+                    Player livingEntitiy = colliders[i].GetComponent<Player>();
+                    if (livingEntitiy != null && !livingEntitiy.dead)
                     {
                         targetEntity = livingEntitiy;
 
@@ -152,7 +163,6 @@ public partial class Zombie : LivingEntitiy
     {
         hitting = false;
     }
-
     private void Begin_Collision()
     {
         handWeapon.Begin_Collision();
@@ -161,7 +171,6 @@ public partial class Zombie : LivingEntitiy
     {
         handWeapon.End_Collision();
     }
-
 
     // 몬스터가 죽었다면
     public override void Die()
@@ -173,13 +182,19 @@ public partial class Zombie : LivingEntitiy
         {
             colliders[i].enabled = false;
         }
+
+        /*삭제 방식*/
+        //GameManager.instance.DeleteList(gameObject);
+        GameManager.instance.DeleteCnt(1);
     }
-
-
 
     private void OnDrawGizmos()
     {
+        /*적 반경을 탐지하는 구 Draw*/
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, radius);
+        /*이동할 좌표 경로를 그리는 선 Draw*/
+        Gizmos.color = Color.red;
+        Debug.DrawLine(transform.position, destPos, Color.red);
     }
 }

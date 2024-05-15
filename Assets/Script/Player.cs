@@ -87,10 +87,4 @@ public partial class Player : LivingEntitiy
         animator.SetTrigger("IsDead");
         collider.enabled = false;
     }
-    private void OnGUI()
-    {
-        GUI.color = Color.red;
-        //GUI.Label(new Rect(10, 10, 100, 20), $"horzontal : {horizontal}");
-        //GUI.Label(new Rect(10, 20, 100, 20), $"vertical : {vertical}");
-    }
 }
