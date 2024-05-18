@@ -3,12 +3,18 @@ using UnityEngine;
 
 public class HandAttack : MonoBehaviour
 {
+    [SerializeField]
+    DoActionData[] doActionDatas;
+
     private new Collider collider;
     private GameObject rootObject;
     private List<GameObject> hittedList;
     [SerializeField]
     private float damage = 20f;
     //private Zombie zombie;
+
+    //좀비 공격 콤보
+    public int comboIndex;
 
     private void Awake()
     {
@@ -36,7 +42,7 @@ public class HandAttack : MonoBehaviour
         LivingEntitiy entitiy = other.GetComponent<LivingEntitiy>();
         Vector3 hitPoint = other.ClosestPoint(transform.position);          //다른 오브젝트의 가장 가까운 지점을 찾음.
         Vector3 hitNormal = transform.position - other.transform.position;
-        entitiy?.OnDamage(damage, hitPoint, hitNormal);
+        entitiy?.OnDamage(damage, hitPoint, hitNormal,rootObject, doActionDatas[0]);
     }
 
     public void Begin_Collision()

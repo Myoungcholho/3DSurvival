@@ -1,9 +1,27 @@
+using System;
 using System.Collections.Generic;
-using System.Xml;
 using UnityEngine;
+
+[Serializable]
+public class DoActionData
+{
+    public float Power;
+    public int StopFrame;
+    public float Distance;
+
+
+    public AudioClip HitAudioClip;
+
+    public GameObject HitParticle;
+    public Vector3 HitParticlePositionOffset;
+    public Vector3 HitParticleScaleOffset = Vector3.one;
+}
 
 public class Sword : MonoBehaviour
 {
+    [SerializeField]
+    DoActionData[] doActionDatas;
+
     private new Collider collider;
     private GameObject rootObject;
     private List<GameObject> hittedList;
@@ -31,7 +49,12 @@ public class Sword : MonoBehaviour
         hittedList.Add(other.gameObject);
 
         LivingEntitiy entitiy = other.GetComponent<LivingEntitiy>();
-        entitiy?.OnDamage(20f, Vector3.zero, Vector3.zero);
+        if(entitiy != null) 
+        {
+            Player player = rootObject.GetComponent<Player>();
+            entitiy.OnDamage(20f, Vector3.zero, Vector3.zero,rootObject, doActionDatas[player.comboIndex]);
+            
+        }
     }
 
     public void Begin_Collision()

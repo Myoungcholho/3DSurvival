@@ -46,6 +46,7 @@ public partial class Player
     private void End_Equip()
     {
         bEquipped = true; // 검을 장착했는지
+        animator.SetBool("bEquipped", bEquipped);
 
         bDrawing = false;
         animator.SetBool("IsEquip", false);
@@ -64,6 +65,7 @@ public partial class Player
     private void End_Unequip()
     {
         bEquipped = false;
+        animator.SetBool("bEquipped", bEquipped);
 
         bSheathing = false;
         animator.SetBool("IsUnequip", false);
@@ -75,7 +77,7 @@ public partial class Player
     private bool bAttacking = false;
     private bool bEnable = false;
     private bool bExist = false;
-
+    public int comboIndex;
 
     private void UpdateAttacking()
     {
@@ -107,6 +109,8 @@ public partial class Player
     {
         if (!bExist)
             return;
+
+        comboIndex++;
         bExist = false;
         animator.SetTrigger("NextCombo");
     }
@@ -116,6 +120,7 @@ public partial class Player
     {
         bAttacking = false;
         animator.SetBool("IsAttacking", false);
+        comboIndex = 0;
     }
 
     private void Begin_Combo()

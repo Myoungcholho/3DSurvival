@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.UI;
 
 public partial class Player : LivingEntitiy
 {
@@ -22,9 +23,13 @@ public partial class Player : LivingEntitiy
     private Transform handTransform;
 
     private Animator animator;
+    private bool bHitting;
 
     // 플레이어 콜라이더
     private new Collider collider;
+
+    // UI HP bar
+    public Slider healthBar;
 
     private void Awake()
     {
@@ -32,9 +37,16 @@ public partial class Player : LivingEntitiy
         collider = GetComponent<Collider>();
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        healthBar.gameObject.SetActive(true);
+        healthBar.maxValue = startingHealth;
+        healthBar.value = health;
+    }
+
     private void Start()
     {
-        SetUp();
         holsterTransform = transform.FindChildByName("Holster");
         handTransform = transform.FindChildByName("HolderWeapon");
         if (swordPrefab != null)
@@ -49,14 +61,12 @@ public partial class Player : LivingEntitiy
         if (GameManager.instance.isGameover)
             return;
 
+        if (bHitting)
+            return;
+
         UpdateMoving();
         UpdateDrawing();
         UpdateAttacking();
-    }
-
-    private void SetUp()
-    {
-        health = startingHealth;
     }
 
     private void UpdateMoving()
@@ -76,9 +86,21 @@ public partial class Player : LivingEntitiy
         animator.SetFloat("SpeedZ", direction.z);
     }
 
-    public virtual void OnDamage(float damage,Vector3 hitPoint,Vector3 hitNormal)
+    public override void OnDamage(float damage,Vector3 hitPoint,Vector3 hitNormal, GameObject attacker, DoActionData doActionData)
     {
+        base.OnDamage(damage, hitPoint, hitNormal, attacker, doActionData);
+        healthBar.value = health;
+        if (dead)
+            return;
 
+        animator.SetTrigger("Hitting");
+        bHitting = true;
+        
+    }
+
+    private void End_Hitting()
+    {
+        bHitting = false;
     }
 
     public override void Die()

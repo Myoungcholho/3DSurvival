@@ -10,12 +10,20 @@ public class LivingEntitiy : MonoBehaviour, IDamageable
     public bool dead { get; protected set; }    //사망유무
     public event Action onDeadth;               //죽었을 때 실행할 델리게이트
 
+    protected virtual void OnEnable()
+    {
+        health = startingHealth;
+    }
+
     // 데미지 입을 시 처리
-    public virtual void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal)
+    public virtual void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal, GameObject attacker, DoActionData doActionData)
     {
         health += damage * -1.0f;
 
+        #if MY_DEBUG
         Debug.Log("오브젝트 : " + gameObject.name +"남은 체력 : " + health);
+        #endif
+
         if (health <= 0)
             Die();
     }
