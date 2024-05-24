@@ -8,20 +8,15 @@ public class HandAttack : MonoBehaviour
 
     private new Collider collider;
     private GameObject rootObject;
+    private Zombie zombie;
     private List<GameObject> hittedList;
-    [SerializeField]
-    private float damage = 20f;
-    //private Zombie zombie;
-
-    //좀비 공격 콤보
-    public int comboIndex;
 
     private void Awake()
     {
         collider = GetComponent<Collider>();
         rootObject = transform.root.gameObject;
         hittedList = new List<GameObject>();
-        //zombie = transform.root.gameObject.GetComponent<Zombie>();
+        zombie = transform.root.gameObject.GetComponent<Zombie>();
     }
 
     private void Start()
@@ -42,7 +37,7 @@ public class HandAttack : MonoBehaviour
         LivingEntitiy entitiy = other.GetComponent<LivingEntitiy>();
         Vector3 hitPoint = other.ClosestPoint(transform.position);          //다른 오브젝트의 가장 가까운 지점을 찾음.
         Vector3 hitNormal = transform.position - other.transform.position;
-        entitiy?.OnDamage(damage, hitPoint, hitNormal,rootObject, doActionDatas[0]);
+        entitiy?.OnDamage(hitPoint, hitNormal,rootObject, doActionDatas[zombie.ComboIndex]);
     }
 
     public void Begin_Collision()

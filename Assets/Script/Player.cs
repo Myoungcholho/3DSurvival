@@ -86,9 +86,9 @@ public partial class Player : LivingEntitiy
         animator.SetFloat("SpeedZ", direction.z);
     }
 
-    public override void OnDamage(float damage,Vector3 hitPoint,Vector3 hitNormal, GameObject attacker, DoActionData doActionData)
+    public override void OnDamage(Vector3 hitPoint,Vector3 hitNormal, GameObject attacker, DoActionData doActionData)
     {
-        base.OnDamage(damage, hitPoint, hitNormal, attacker, doActionData);
+        base.OnDamage(hitPoint, hitNormal, attacker, doActionData);
         healthBar.value = health;
         if (dead)
             return;

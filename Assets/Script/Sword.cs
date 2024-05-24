@@ -52,7 +52,7 @@ public class Sword : MonoBehaviour
         if(entitiy != null) 
         {
             Player player = rootObject.GetComponent<Player>();
-            entitiy.OnDamage(20f, Vector3.zero, Vector3.zero,rootObject, doActionDatas[player.comboIndex]);
+            entitiy.OnDamage(Vector3.zero, Vector3.zero,rootObject, doActionDatas[player.comboIndex]);
             
         }
     }

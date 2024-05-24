@@ -16,9 +16,9 @@ public class LivingEntitiy : MonoBehaviour, IDamageable
     }
 
     // 데미지 입을 시 처리
-    public virtual void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal, GameObject attacker, DoActionData doActionData)
+    public virtual void OnDamage(Vector3 hitPoint, Vector3 hitNormal, GameObject attacker, DoActionData doActionData)
     {
-        health += damage * -1.0f;
+        health += doActionData.Power * -1.0f;
 
         #if MY_DEBUG
         Debug.Log("오브젝트 : " + gameObject.name +"남은 체력 : " + health);

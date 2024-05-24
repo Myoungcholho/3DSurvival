@@ -168,9 +168,9 @@ public partial class Zombie : LivingEntitiy
     }
 
     // 몬스터가 피해를 입었다면
-    public override void OnDamage(float damage, Vector3 hitPoint, Vector3 hitNormal, GameObject attacker, DoActionData data)
+    public override void OnDamage(Vector3 hitPoint, Vector3 hitNormal, GameObject attacker, DoActionData data)
     {
-        base.OnDamage(damage, hitPoint, hitNormal,attacker,data);
+        base.OnDamage(hitPoint, hitNormal,attacker,data);
         healthSlider.value = health;
 
         foreach(Material material in materialList)
