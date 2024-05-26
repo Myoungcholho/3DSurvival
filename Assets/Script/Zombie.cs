@@ -180,6 +180,7 @@ public partial class Zombie : LivingEntitiy
         Invoke("RestoreColor", 0.5f);
 
         // Animation Delay Code..
+        FrameComponent.Instance.Delay(data.StopFrame);
 
         if (data.HitParticle != null)
         {

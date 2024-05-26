@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9d522165bb040bf41ba56b5cde59db99
+guid: aeeb8a49cb2a2654d99b8f2decffbf22
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: ZombieAttack3
+      name: ZombieAttack3 1
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
@@ -57,21 +57,21 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.375
+      - time: 0.33608818
         functionName: Begin_Collision
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 74c19dde1c57aef4a9c068fa5b077b3a, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.48284316
+      - time: 0.4986226
         functionName: End_Collision
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 74c19dde1c57aef4a9c068fa5b077b3a, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.9688599
+      - time: 0.9476584
         functionName: End_Attack
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 74c19dde1c57aef4a9c068fa5b077b3a, type: 3}
