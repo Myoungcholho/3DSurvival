@@ -201,8 +201,9 @@ public partial class Zombie : LivingEntitiy
 
             rigidbody.isKinematic = false;
             float launch = rigidbody.drag * data.Distance * 100.0f;
-            rigidbody.AddForce(-transform.forward * launch);
-            StartCoroutine(Change_IsKinemetics(5));
+            Debug.Log("zombie.cs , ¹Ð¸®´Â Èû launch" + launch);
+            rigidbody.AddForce(-transform.forward * launch *10);
+            StartCoroutine(Change_IsKinemetics(50));
 
 
             return;

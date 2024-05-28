@@ -1511,10 +1511,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 4320146963213399748, guid: 01c5fecec317ae64f8ab65b05fa6a7a6, type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01c5fecec317ae64f8ab65b05fa6a7a6, type: 3}
 --- !u!1001 &6400797055265149263
@@ -1536,6 +1532,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6400797055265149265, guid: 5d333eac3eeacbb44bed384c2776c1d0, type: 3}
+      propertyPath: shieldPrefab
+      value: 
+      objectReference: {fileID: 1537057396003003714, guid: 35e8867bb35ce1e4bb4cffb07c217064, type: 3}
     - target: {fileID: 6872082359727134694, guid: 5d333eac3eeacbb44bed384c2776c1d0, type: 3}
       propertyPath: m_RootOrder
       value: 7

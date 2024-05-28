@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -25,6 +26,12 @@ public partial class Player : LivingEntitiy
     private Animator animator;
     private bool bHitting;
 
+    [SerializeField]
+    private GameObject shieldPrefab;
+    private GameObject shieldDestination;   // 방패 Instantiate 정보
+    private Transform shieldTransform;
+
+    
     // 플레이어 콜라이더
     private new Collider collider;
 
@@ -49,10 +56,15 @@ public partial class Player : LivingEntitiy
     {
         holsterTransform = transform.FindChildByName("Holster");
         handTransform = transform.FindChildByName("HolderWeapon");
+        shieldTransform = transform.FindChildByName("ShieldAttachPoint");
         if (swordPrefab != null)
         {
             swordDestination = Instantiate<GameObject>(swordPrefab, holsterTransform);
             sword = swordDestination.GetComponent<Sword>();
+        }
+        if(shieldPrefab != null)
+        {
+            shieldDestination = Instantiate<GameObject>(shieldPrefab, shieldTransform);
         }
     }
 
@@ -64,16 +76,19 @@ public partial class Player : LivingEntitiy
         if (bHitting)
             return;
 
+
         UpdateMoving();
         UpdateDrawing();
         UpdateAttacking();
+        UpdateGuarding();
     }
 
     private void UpdateMoving()
     {
         if (bAttacking)
             return;
-
+        if (bGuarding)
+            return;
 
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
@@ -86,9 +101,27 @@ public partial class Player : LivingEntitiy
         animator.SetFloat("SpeedZ", direction.z);
     }
 
-    public override void OnDamage(Vector3 hitPoint,Vector3 hitNormal, GameObject attacker, DoActionData doActionData)
+    // 플레이어 피격 시 호출
+    public override void OnDamage(Vector3 hitPoint,Vector3 hitNormal, GameObject attacker, DoActionData data)
     {
-        base.OnDamage(hitPoint, hitNormal, attacker, doActionData);
+        FrameComponent.Instance.Delay(data.StopFrame);        
+        
+        if (data.HitParticle != null)
+        {
+            GameObject obj = Instantiate(data.HitParticle, transform, false);
+            obj.transform.localPosition = data.HitParticlePositionOffset;
+            obj.transform.localScale = data.HitParticleScaleOffset;
+        }
+
+        if (bBlocking)
+        {
+            Debug.Log("Player OnDamage , 데미지 무효");
+            return;
+        }
+
+        base.OnDamage(hitPoint, hitNormal, attacker, data);
+
+
         healthBar.value = health;
         if (dead)
             return;

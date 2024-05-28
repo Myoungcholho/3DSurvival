@@ -19,6 +19,9 @@ public partial class Player
         if (bSheathing == true)
             return;
 
+        if (bGuarding)
+            return;
+
         if (bEquipped == false)
         {
             bDrawing = true;
@@ -87,6 +90,9 @@ public partial class Player
         if (bDrawing || bSheathing)
             return;
 
+        if (bGuarding)
+            return;
+
         if (bEquipped == false)
             return;
 
@@ -145,5 +151,43 @@ public partial class Player
     {
         sword.End_Collision();
     }
+    #endregion
+
+    // 가드 코드
+    #region Guard
+    private bool bGuarding = false;
+    private bool bBlocking = false;
+
+    private void UpdateGuarding()
+    {
+        if (!Input.GetButton("Guard"))
+        {
+            bGuarding = false;
+            animator.SetBool("bGuarding", bGuarding);
+            return;
+        }
+
+        if (bHitting || bAttacking)
+            return;
+
+        // 검을 들고 있는 상태에서만 실드 가능
+        if (!bEquipped)
+            return;
+
+
+        bGuarding = true;
+        animator.SetBool("bGuarding", bGuarding);
+    }
+
+    private void Begin_Guard()
+    {
+        bBlocking = true;
+    }
+
+    private void End_Guard()
+    {
+        bBlocking = false;
+    }
+
     #endregion
 }
