@@ -32,13 +32,17 @@ public class HandAttack : MonoBehaviour
         if (hittedList.Contains(other.gameObject))
             return;
 
+
+
         hittedList.Add(other.gameObject);
-        
         LivingEntitiy entitiy = other.GetComponent<LivingEntitiy>();
         Vector3 hitPoint = other.ClosestPoint(transform.position);          //다른 오브젝트의 가장 가까운 지점을 찾음.
         Vector3 hitNormal = transform.position - other.transform.position;
         entitiy?.OnDamage(hitPoint, hitNormal,rootObject, doActionDatas[zombie.ComboIndex]);
     }
+
+
+    
 
     public void Begin_Collision()
     {

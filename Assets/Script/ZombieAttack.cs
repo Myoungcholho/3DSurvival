@@ -13,6 +13,12 @@ public partial class Zombie
     }
     private bool bEnable = false;
     private bool bExist = false;
+    private enum AttackPattern
+    {
+        Attack =0,
+        Guard = 1,
+    }
+
 
     // 공격 범위에 들어왔다면
     // Player의 BoxCollider 만 지금 체크 중
@@ -33,7 +39,26 @@ public partial class Zombie
         if (IsAttack)
             return;
 
+        /*여기서 공격할지 방어할지 택*/
+        AttackPattern randomState = (AttackPattern)Random.Range(1, 3);
 
+        switch (randomState)
+        {
+            case AttackPattern.Attack:
+            {
+                ZombieAttack(other);
+            }
+            break;
+            case AttackPattern.Guard:
+            {
+                ZombieGuard();
+            }
+            break;
+        }
+    }
+
+    private void ZombieAttack(Collider other)
+    {
         LivingEntitiy attackTarget = other.GetComponent<LivingEntitiy>();
         // 타겟이 있고, 목표하는 타겟이 맞다면 공격
         if (attackTarget != null && attackTarget == targetEntity)
@@ -43,7 +68,9 @@ public partial class Zombie
 
             IsWalking = false;
         }
-
+    }
+    private void ZombieGuard()
+    {
 
     }
 
