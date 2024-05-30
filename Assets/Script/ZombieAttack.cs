@@ -4,15 +4,11 @@ using UnityEngine;
 
 public partial class Zombie
 {
-    private bool IsAttack;
-    //좀비 공격 콤보
-    private int comboIndex;
     public int ComboIndex
     {
         get => comboIndex;
     }
-    private bool bEnable = false;
-    private bool bExist = false;
+    
     private enum AttackPattern
     {
         Attack =0,
@@ -22,11 +18,15 @@ public partial class Zombie
 
     // 공격 범위에 들어왔다면
     // Player의 BoxCollider 만 지금 체크 중
+    private float patternTime;
+    private float patternDelay =1f;
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject == this)
             return;
         if (dead)
+            return;
+        if (IsGuard)
             return;
 
         if(bEnable)
@@ -39,8 +39,12 @@ public partial class Zombie
         if (IsAttack)
             return;
 
+/*        if (!(Time.time >= patternDelay + patternTime))
+            return;*/
+
         /*여기서 공격할지 방어할지 택*/
-        AttackPattern randomState = (AttackPattern)Random.Range(1, 3);
+        AttackPattern randomState = (AttackPattern)Random.Range(1, 2);
+        //patternTime = Time.time;
 
         switch (randomState)
         {
@@ -71,10 +75,18 @@ public partial class Zombie
     }
     private void ZombieGuard()
     {
-
+        IsGuard = true;
+        animator.SetBool("IsGuard", IsGuard);
     }
 
     /* animation clip event call*/
+    private void End_Guard()
+    {
+        IsGuard = false;
+        defenseCount = 0;
+        animator.SetBool("IsGuard", IsGuard);
+    }
+
     private void Next_Combo()
     {
         if (!bExist)

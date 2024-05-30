@@ -24,6 +24,9 @@ public partial class Zombie
         if (IsAttack)
             return;
 
+        if (IsGuard)
+            return;
+
         Vector3 direction = destPos - transform.position;
         // 거리가 가까우면 Walk 변경
         if (Vector3.Distance(transform.position, destPos) < distanceRadius)

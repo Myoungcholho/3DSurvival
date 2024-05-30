@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doActionDatas:
   - Power: 10
-    StopFrame: 4
+    StopFrame: 20
     Distance: 1
     HitAudioClip: {fileID: 0}
     HitParticle: {fileID: 1743301284569550, guid: 7252ba6a0a18583419f36a030d675fd1, type: 3}
