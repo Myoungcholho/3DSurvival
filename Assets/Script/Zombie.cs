@@ -51,6 +51,7 @@ public partial class Zombie : LivingEntitiy
     private bool IsAttack;          // 공격 중이라면
     [SerializeField]
     private bool IsGuard;           // 방어 중이라면
+
     [SerializeField]
     private bool bEnable = false;   // 좀비 콤보공격 가능
     [SerializeField]
@@ -250,7 +251,7 @@ public partial class Zombie : LivingEntitiy
             End_Attack();                   // 공격 중에 맞을 수 있으니 false로 변경
             rigidbody.isKinematic = false;
             float launch = rigidbody.drag * data.Distance * 100.0f;
-            Debug.Log("zombie.cs , 밀리는 힘 launch" + launch);
+            //Debug.Log("zombie.cs , 밀리는 힘 launch" + launch);
             rigidbody.AddForce(-transform.forward * launch *10);
             StartCoroutine(Change_IsKinemetics(50));
 
@@ -284,11 +285,15 @@ public partial class Zombie : LivingEntitiy
     {
         isFalled = true;
         IsGuard = false;
+        animator.SetBool("IsGuard", IsGuard);
+        Debug.Log("Begin_Falled()" + Time.time);
     }
+    // 자빠졌다가 일어났을 때 호출
     private void End_Falled()
     {
         isFalled = false;
         isCritical = false;
+        hitting = false;
     }
     private void End_Hit()
     {

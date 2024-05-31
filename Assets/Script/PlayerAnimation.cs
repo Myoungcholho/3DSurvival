@@ -77,9 +77,17 @@ public partial class Player
 
     // 공격하는 코드
     #region Attacking
+    [SerializeField]
+    [Header("-----Player State-----")]
     private bool bAttacking = false;
+    [SerializeField]
     private bool bEnable = false;
+    [SerializeField]
     private bool bExist = false;
+    [SerializeField]
+    private bool bParryExist = false;           // 패링 중 순간에 잠깐 켜지고 꺼질 것임
+    [SerializeField]
+    private bool bParring = false;
     public int comboIndex;
 
     private void UpdateAttacking()
@@ -90,11 +98,18 @@ public partial class Player
         if (bDrawing || bSheathing)
             return;
 
-        if (bGuarding)
+        if (bParring)
             return;
 
         if (bEquipped == false)
             return;
+
+        if (bGuarding)
+        {
+            GuardAttack();
+            return;
+        }
+
 
         if(bEnable)
         {
@@ -108,6 +123,35 @@ public partial class Player
 
         bAttacking = true;
         animator.SetBool("IsAttacking", true);
+    }
+
+    private void GuardAttack()
+    {
+        animator.SetTrigger("Parring");
+    }
+
+    // 방패 패링 애니메이션 시작 시 호출
+    private void Begin_Parring()
+    {
+        bParring = true;
+        bBlocking = false;
+    }
+    private void End_Parring()
+    {
+        bParring = false;
+        bBlocking = true;
+    }
+    private void Begin_GuardAttack()
+    {
+        // bool 값만 변경해두고
+        // 데미지 들어올 때 만약 여기가 true였다면
+        // 좀비에게 기절모션이 걸릴 수 있도록하자.
+        bParryExist = true;
+    }
+    private void End_GuardAttack() 
+    {
+        animator.ResetTrigger("Parring");
+        bParryExist = false;
     }
 
     // 콤보 공격을 이어감

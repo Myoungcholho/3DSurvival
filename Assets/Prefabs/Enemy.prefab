@@ -1049,6 +1049,16 @@ MonoBehaviour:
   healthSlider: {fileID: 747516037}
   outOfRange: 0
   radius: 5
+  hitting: 0
+  isWalking: 0
+  isCritical: 0
+  isFalled: 0
+  IsAttack: 0
+  IsGuard: 0
+  bEnable: 0
+  bExist: 0
+  defenseCount: 0
+  comboIndex: 0
 --- !u!1 &1911192991778503907
 GameObject:
   m_ObjectHideFlags: 0

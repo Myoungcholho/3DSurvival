@@ -112,21 +112,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doActionDatas:
-  - Power: 10
+  - Power: 5
     StopFrame: 20
     Distance: 1
     HitAudioClip: {fileID: 0}
     HitParticle: {fileID: 1743301284569550, guid: 7252ba6a0a18583419f36a030d675fd1, type: 3}
     HitParticlePositionOffset: {x: 0, y: 1.25, z: 0}
     HitParticleScaleOffset: {x: 1.5, y: 1.5, z: 1.5}
-  - Power: 15
+  - Power: 7
     StopFrame: 6
     Distance: 2
     HitAudioClip: {fileID: 0}
     HitParticle: {fileID: 1743301284569550, guid: 7252ba6a0a18583419f36a030d675fd1, type: 3}
     HitParticlePositionOffset: {x: 0, y: 1.25, z: 0}
     HitParticleScaleOffset: {x: 2, y: 2, z: 2}
-  - Power: 20
+  - Power: 10
     StopFrame: 8
     Distance: 5
     HitAudioClip: {fileID: 0}

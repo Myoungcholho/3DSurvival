@@ -1948,7 +1948,15 @@ MonoBehaviour:
   walkSpeed: 2
   runSpeed: 4
   swordPrefab: {fileID: 3416242799107576982, guid: 51e6752fb1b8e6042b9835e922af930f, type: 3}
-  shieldPrefab: {fileID: 0}
+  shieldPrefab: {fileID: 1537057396003003714, guid: 35e8867bb35ce1e4bb4cffb07c217064, type: 3}
+  parringData:
+    Power: 10
+    StopFrame: 20
+    Distance: 0
+    HitAudioClip: {fileID: 0}
+    HitParticle: {fileID: 1743301284569550, guid: 7252ba6a0a18583419f36a030d675fd1, type: 3}
+    HitParticlePositionOffset: {x: 0, y: 0, z: 0}
+    HitParticleScaleOffset: {x: 3, y: 3, z: 3}
   healthBar: {fileID: 556751695}
   comboIndex: 0
 --- !u!1 &6249410769206040952

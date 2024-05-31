@@ -15,11 +15,6 @@ public partial class Zombie
         Guard = 1,
     }
 
-
-    // 공격 범위에 들어왔다면
-    // Player의 BoxCollider 만 지금 체크 중
-    private float patternTime;
-    private float patternDelay =1f;
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject == this)
@@ -38,13 +33,12 @@ public partial class Zombie
 
         if (IsAttack)
             return;
+        if (isFalled)
+            return;
 
-/*        if (!(Time.time >= patternDelay + patternTime))
-            return;*/
 
         /*여기서 공격할지 방어할지 택*/
-        AttackPattern randomState = (AttackPattern)Random.Range(1, 2);
-        //patternTime = Time.time;
+        AttackPattern randomState = (AttackPattern)Random.Range(0, 2);
 
         switch (randomState)
         {
@@ -73,18 +67,23 @@ public partial class Zombie
             IsWalking = false;
         }
     }
+
+
     private void ZombieGuard()
     {
         IsGuard = true;
         animator.SetBool("IsGuard", IsGuard);
+        //Debug.Log("ZombieGuard()" + Time.time);
     }
 
     /* animation clip event call*/
     private void End_Guard()
     {
         IsGuard = false;
+        //Debug.Log("End_Guard() :" + Time.time);
         defenseCount = 0;
         animator.SetBool("IsGuard", IsGuard);
+
     }
 
     private void Next_Combo()

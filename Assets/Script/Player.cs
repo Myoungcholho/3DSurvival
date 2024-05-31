@@ -31,7 +31,10 @@ public partial class Player : LivingEntitiy
     private GameObject shieldDestination;   // 방패 Instantiate 정보
     private Transform shieldTransform;
 
-    
+    // 패링시 생길 Effect 정보
+    [SerializeField]
+    DoActionData parringData;
+
     // 플레이어 콜라이더
     private new Collider collider;
 
@@ -75,7 +78,8 @@ public partial class Player : LivingEntitiy
 
         if (bHitting)
             return;
-
+        if (bParring)
+            return;
 
         UpdateMoving();
         UpdateDrawing();
@@ -104,8 +108,19 @@ public partial class Player : LivingEntitiy
     // 플레이어 피격 시 호출
     public override void OnDamage(Vector3 hitPoint,Vector3 hitNormal, GameObject attacker, DoActionData data)
     {
+        if(bParryExist)
+        {
+            // 여기부터
+            // 패링 성공 시 적 기절 애니메이션 상태로 이동할 수 있게끔
+            // 적 기절 애니메이션 중은 Critical 상태로 할 것
+            Debug.Log("패링 성공");
+            ReflectDamage(attacker);
+            return;
+        }
         FrameComponent.Instance.Delay(data.StopFrame);        
         
+        // 만약 패링 타이밍 중 데미지를 받았다면
+
         if (data.HitParticle != null)
         {
             GameObject obj = Instantiate(data.HitParticle, transform, false);
@@ -115,7 +130,7 @@ public partial class Player : LivingEntitiy
 
         if (bBlocking)
         {
-            Debug.Log("Player OnDamage , 데미지 무효");
+            Debug.Log("Player OnDamage 가드-> 데미지 무효");
             return;
         }
 
@@ -128,7 +143,18 @@ public partial class Player : LivingEntitiy
 
         animator.SetTrigger("Hitting");
         bHitting = true;
-        
+        bParring = false;
+    }
+
+    private void ReflectDamage(GameObject attacker)
+    {
+        LivingEntitiy living = attacker.GetComponent<LivingEntitiy>();
+        if(living == null)
+        {
+            Debug.Log("ReflectDamage() null");
+            return;
+        }
+        living.OnDamage(Vector3.zero, Vector3.zero, this.gameObject, parringData);
     }
 
     private void End_Hitting()
