@@ -108,6 +108,8 @@ public partial class Player : LivingEntitiy
     // 플레이어 피격 시 호출
     public override void OnDamage(Vector3 hitPoint,Vector3 hitNormal, GameObject attacker, DoActionData data)
     {
+        Debug.Log("OnDamage " + this.gameObject.name);
+
         if(bParryExist)
         {
             // 여기부터
@@ -117,8 +119,9 @@ public partial class Player : LivingEntitiy
             ReflectDamage(attacker);
             return;
         }
-        FrameComponent.Instance.Delay(data.StopFrame);        
-        
+        FrameComponent.Instance.Delay(data.StopFrame);
+        Debug.Log("Delay : " + data.StopFrame);
+
         // 만약 패링 타이밍 중 데미지를 받았다면
 
         if (data.HitParticle != null)

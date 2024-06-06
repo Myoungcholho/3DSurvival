@@ -2,21 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
-public class DoActionData
-{
-    public float Power;
-    public int StopFrame;
-    public float Distance;
-
-
-    public AudioClip HitAudioClip;
-
-    public GameObject HitParticle;
-    public Vector3 HitParticlePositionOffset;
-    public Vector3 HitParticleScaleOffset = Vector3.one;
-}
-
 public class Sword : MonoBehaviour
 {
     [SerializeField]

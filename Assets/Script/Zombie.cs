@@ -46,6 +46,8 @@ public partial class Zombie : LivingEntitiy
     [SerializeField]
     private bool isCritical;        // 치명적인 상태라면
     [SerializeField]
+    private bool isCritical2;        //패링 후 치명적인 상태
+    [SerializeField]
     private bool isFalled;          // 자빠져있는 상태라면
     [SerializeField]
     private bool IsAttack;          // 공격 중이라면
@@ -176,6 +178,9 @@ public partial class Zombie : LivingEntitiy
         if (IsAttack)
             return;
 
+        if (isCritical2)
+            return;
+
         Vector3 targetPos = targetEntity.transform.position;
         Vector3 pos = transform.position;
         Vector3 direction = targetPos - pos;
@@ -202,6 +207,14 @@ public partial class Zombie : LivingEntitiy
             SucessGuard();
         }
 
+        // 스턴 공격 타입이면..
+        if(data.attackState == AttackState.StunAttack)
+        {
+            Fainting(data);
+            return;
+        }
+
+
         // Animation Delay Code..
         FrameComponent.Instance.Delay(data.StopFrame);
 
@@ -215,7 +228,7 @@ public partial class Zombie : LivingEntitiy
         if (IsGuard)
             return;
 
-        if (isCritical)
+        if (isCritical || isCritical2)
         {
             data.Power = ConstValue.FalledDamage;
         }
@@ -276,10 +289,21 @@ public partial class Zombie : LivingEntitiy
             IsGuard = false;
             isCritical = true;
         }
-
-        
-
     }
+    private void Fainting(DoActionData data)
+    {
+        animator.SetTrigger("Fainting");
+        animator.ResetTrigger("Attacking");
+        End_Collision();
+
+        ComboIndex = 0;
+        isCritical2 = true;
+        IsAttack = false;
+        IsGuard = false;
+        characterState = CharacterState.Stunned;
+        FrameComponent.Instance.Delay(data.StopFrame);
+    }
+
     /*애니메이션 event호출 메서드*/
     private void Begin_Falled()
     {
@@ -298,6 +322,7 @@ public partial class Zombie : LivingEntitiy
     private void End_Hit()
     {
         hitting = false;
+        End_Fainting();
     }
     private void Begin_Collision()
     {
@@ -307,6 +332,12 @@ public partial class Zombie : LivingEntitiy
     {
         handWeapon.End_Collision();
     }
+    private void End_Fainting()
+    {
+        characterState = CharacterState.Normal;
+        isCritical2 = false;
+    }
+    
 
     // 몬스터가 죽었다면
     public override void Die()

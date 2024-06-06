@@ -9,7 +9,7 @@ public class LivingEntitiy : MonoBehaviour, IDamageable
     public float health { get; protected set; }   //현재 HP
     public bool dead { get; protected set; }    //사망유무
     public event Action onDeadth;               //죽었을 때 실행할 델리게이트
-
+    public CharacterState characterState { get; protected set; }
     protected virtual void OnEnable()
     {
         health = startingHealth;

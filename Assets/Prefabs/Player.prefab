@@ -1950,7 +1950,8 @@ MonoBehaviour:
   swordPrefab: {fileID: 3416242799107576982, guid: 51e6752fb1b8e6042b9835e922af930f, type: 3}
   shieldPrefab: {fileID: 1537057396003003714, guid: 35e8867bb35ce1e4bb4cffb07c217064, type: 3}
   parringData:
-    Power: 10
+    attackState: 1
+    Power: 0
     StopFrame: 20
     Distance: 0
     HitAudioClip: {fileID: 0}
@@ -1958,6 +1959,11 @@ MonoBehaviour:
     HitParticlePositionOffset: {x: 0, y: 0, z: 0}
     HitParticleScaleOffset: {x: 3, y: 3, z: 3}
   healthBar: {fileID: 556751695}
+  bAttacking: 0
+  bEnable: 0
+  bExist: 0
+  bParryExist: 0
+  bParring: 0
   comboIndex: 0
 --- !u!1 &6249410769206040952
 GameObject:

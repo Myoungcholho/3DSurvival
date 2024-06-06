@@ -6,6 +6,7 @@ public partial class Zombie
 {
     public int ComboIndex
     {
+        set => comboIndex = value;
         get => comboIndex;
     }
     
@@ -35,7 +36,8 @@ public partial class Zombie
             return;
         if (isFalled)
             return;
-
+        if (isCritical2)
+            return;
 
         /*여기서 공격할지 방어할지 택*/
         AttackPattern randomState = (AttackPattern)Random.Range(0, 2);
